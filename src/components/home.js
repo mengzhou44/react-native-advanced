@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
 
-import { View } from 'react-native';
+import { View, Button, Text, Image } from 'react-native';
 
-import { Navigation } from './common';
-
-
-import ScreenDemo from './screen-demo';
+import Images from '../images';
 
 class Home extends Component {
 
-    state = { current: 'Demo' };
-
-    renderScreen() {
-        switch (this.state.current) {
-            case 'Demo':
-                return <ScreenDemo />;
-
-            default:
-                return <ScreenDemo />;
-        }
+    static navigationOptions = {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ focused }) => (
+            <Image source={focused ? Images.activeInfoIcon : Images.inactiveInfoIcon} />
+        )
     }
+
+
     render() {
         const { containerStyle } = styles;
         return (
             <View style={containerStyle} >
-                <Navigation
-                    title={this.state.current}
-                    onMenuSelect={
-                        (menu) => this.setState({ current: menu })}
-                >
-                    {this.renderScreen()}
-                </Navigation>
+                <Text> Welcome to Home Page </Text>
+
+                <Button
+                    title="Go to Demo"
+                    onPress={() => this.props.navigation.navigate('Demo')}
+                />
             </View>
         );
     }
