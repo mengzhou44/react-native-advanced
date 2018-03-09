@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 import {
     View,
     Switch,
@@ -10,8 +11,12 @@ import {
     Slider
 } from 'react-native';
 
+import Collapsible from 'react-native-collapsible';
+import DropdownAlert from 'react-native-dropdownalert';
+import * as Progress from 'react-native-progress';
+
 import Images from '../images';
-import { Button } from './common';
+import { Button, FadeInView } from './common';
 
 const BUTTONS = [
     'Option 0',
@@ -38,7 +43,8 @@ class Demo extends Component {
         this.state = {
             wifi: false,
             clicked: 'Option 0',
-            count: 0
+            count: 0,
+            collapsed: true
         };
     }
 
@@ -67,7 +73,7 @@ class Demo extends Component {
     render() {
         const { block1, block2 } = styles;
         return (
-            <View style={{ flex: 1 }}>
+            <FadeInView style={{ flex: 1 }}>
                 <View style={block1}>
                     <Text> Wifi </Text>
                     <Switch
@@ -97,9 +103,31 @@ class Demo extends Component {
                         onValueChange={value => this.setState({ count: value })}
                     />
 
+                    <Button
+                        onPress={() => {
+                            this.setState({ collapsed: !this.state.collapsed });
+                            this.refs.dropdown.alertWithType('error', 'Error', 'error occurred!');
+                        }
+                        }
+                    >
+                        Click Me!
+                     </Button>
+
+                    <Collapsible collapsed={this.state.collapsed} align='bottom'>
+                        <View>
+                            <Text>
+                                Hello World!
+                             </Text>
+                        </View>
+                    </Collapsible>
+
+
                 </View>
 
-            </View>
+                <Progress.Bar progress={0.3} width={200} />
+
+                <DropdownAlert ref='dropdown' />
+            </FadeInView>
         );
     }
 }

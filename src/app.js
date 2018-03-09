@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import {
-    StackNavigator,
     TabNavigator,
     TabBarBottom
 } from 'react-navigation';
@@ -12,15 +11,21 @@ import reducers from './reducers';
 
 import Home from './components/home';
 
+import ScreenModal from './components/screen-modal';
+
 import Demo from './components/demo';
+
+import Animation from './components/animation';
 
 import { globalStyles } from './constants';
 
 const TabNav = TabNavigator({
     Home: { screen: Home },
+    Modal: { screen: ScreenModal },
     Demo: { screen: Demo },
+    Animation: { screen: Animation },
 }, {
-        key: 'Schedule',
+        key: 'Home',
         tabBarComponent: TabBarBottom,
         tabBarPosition: 'bottom',
         animationEnabled: true,
@@ -35,6 +40,7 @@ const TabNav = TabNavigator({
         }
     }
 );
+
 
 class App extends Component {
 
